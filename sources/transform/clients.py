@@ -83,5 +83,3 @@ with s_open('s3://orsan-etl/clients.csv', 'r') as in_data:
                 'type_id': row['tipoContacto'],
                 'orsan_id': row['id']
             })
-
-
