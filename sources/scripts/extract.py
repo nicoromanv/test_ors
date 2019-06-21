@@ -12,14 +12,14 @@ conn = pyodbc.connect(conn_string)
 
 cursor = conn.cursor()
 
-with open('sqls/extract_poliza.sql', 'r') as file_query:
+with open('sqls/extract_endoso.sql', 'r') as file_query:
     query = file_query.read()
 
 cursor.execute(query)
 
 columns = [item[0] for item in cursor.description]
 
-with s_open('s3://orsan-etl/polizas.csv', 'w') as data:
+with s_open('s3://orsan-etl/endosos.csv', 'w') as data:
     writer = DictWriter(data, fieldnames=columns)
     writer.writeheader()
 

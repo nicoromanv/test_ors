@@ -24,8 +24,6 @@ with open('sqls/insert_poliza_garantia.sql', 'r') as query_file:
 with s_open('s3://orsan-etl/polizas-transform.csv', 'r') as input_data:
     reader = DictReader(input_data)
 
-    client_headers = reader.fieldnames
-
     fieldnames = ['orsan_id', 'pg_id']
 
     with s_open('s3://orsan-etl/polizas-dict.csv', 'w') as output_data:
