@@ -21,5 +21,6 @@ left join Poliza P on PolizaHis.polizaId = P.id
 left join PolizaMovObs PMO on PM.id = PMO.polizaMovId
 where len(P.codVerificacion) > 0
   and P.sisRamoId <> 7
+  and PMO.esInactiva = 0
 --   and PM.fAnulacion is null
   and (len(PM.codEndoso) > 0 or PM.movimientoId in (1, 2, 5))
