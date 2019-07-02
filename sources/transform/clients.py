@@ -1,3 +1,4 @@
+import re
 from tqdm import tqdm
 from smart_open import open as s_open
 from csv import DictWriter, DictReader
@@ -23,9 +24,17 @@ def get_address(row):
     return address.strip()
 
 
-def get_name(row):
+def get_first_name(row):
     if row["tipoContacto"] == '1':
-        return (f'{row["nombre"]} {row["sNombre"]}', f'{row["apellido"]} {row["sApellido"]}')
+        name = f'{row["nombre"]} {row["sNombre"]}'
+        return re.sub(r'\s\s+', ' ', name.strip())
+    return None
+
+
+def get_last_name(row):
+    if row["tipoContacto"] == '1':
+        name = f'{row["apellido"]} {row["sApellido"]}'
+        return re.sub(r'\s\s+', ' ', name.strip())
     return (None, None)
 
 
@@ -78,10 +87,14 @@ def transform_clients():
                     'address': get_address(row),
                     'comuna_id': comunas.get(row['coloniaId'], None),
                     'phone': get_phone(row),
-                    'first_name': get_name(row)[0],
-                    'last_name': get_name(row)[1],
+                    'first_name': get_first_name(row),
+                    'last_name': get_last_name(row),
                     'nombre_fantasia': get_company_name(row),
                     'razon_social': get_company_name(row),
                     'type_id': row['tipoContacto'],
                     'orsan_id': row['id']
                 })
+
+
+if __name__ == '__main__':
+    transform_clients()

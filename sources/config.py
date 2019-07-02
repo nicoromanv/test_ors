@@ -5,7 +5,7 @@ class Settings:
 
     DB_ORSAN = f'DSN={config("DRIVER")};' \
         f'DATABASE={config("DATABASE")};' \
-        f'UID={config("USER")};' \
+        f'UID={config("DB_USER")};' \
         f'PWD={config("PASSWORD")}'
 
     DB_USER = f'host={config("USER_DB_HOST")} ' \

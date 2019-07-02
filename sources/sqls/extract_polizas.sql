@@ -24,6 +24,7 @@ with polizas as (
     where PM.movimientoId = 1
       and len(Poliza.codVerificacion) > 0
       and Poliza.sisRamoId <> 7
+      and PMO.esInactiva = 0
 ) select id,
          codigo,
          aseguradoId,
