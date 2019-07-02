@@ -9,16 +9,17 @@ from load import load_clients, load_polizas, load_endosos
 
 
 def main(args):
-    if args.full or args.step == 'extract':
+    if args.full:
         orsan_conn = pyodbc.connect(Settings.DB_ORSAN)
 
         if args.docs:
             print('Extracting documents')
             extract_docs(orsan_conn)
 
-        for item in ['clients', 'poliza', 'endoso']:
+        for item in ['clients', 'polizas', 'endosos']:
             print(f'Extracting {item}')
             extract(orsan_conn, item)
+        return
 
     users_conn = psycopg2.connect(Settings.DB_USER)
     poliza_conn = psycopg2.connect(Settings.DB_POLIZA)
@@ -41,11 +42,10 @@ def main(args):
     print('Load endosos')
     load_endosos(poliza_conn)
 
-    if args.docs:
-        print('Transform docs')
-        transform_docs()
+    print('Transform docs')
+    transform_docs()
 
-        print('Please import documents from the poliza app')
+    print('Please import documents from the poliza app')
 
 
 def parse_arguments():
@@ -55,11 +55,6 @@ def parse_arguments():
         nargs='?',
         const=True,
         default=False
-    )
-    parser.add_argument(
-        '--step',
-        choices=['extract', 'load'],
-        default='extract'
     )
     parser.add_argument(
         '--docs',
