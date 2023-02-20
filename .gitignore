@@ -1,0 +1,26 @@
+# Editors/IDEs
+.vscode/
+*.code-workspace
+.idea/
+
+# Files
+db.sqlite3
+*.pyc
+*.DS_Store
+backend/.env
+backend/.coverage
+backend/.pytest_cache
+frontend/node_modules/
+frontend/build
+
+# Codeship files
+codeship.aes
+dockercfg
+
+# Python files
+*.pyc
+.pytest_cache
+
+# React
+.env*.local
+*.env
